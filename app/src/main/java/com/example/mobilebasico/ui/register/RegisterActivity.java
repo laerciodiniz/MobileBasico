@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mobilebasico.R;
+import com.example.mobilebasico.database.AppDbHelper;
 
 import java.sql.SQLException;
 
@@ -20,8 +21,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
-    private RegisterContract.Presenter mPresenter;
-
     @BindView(R.id.edtName)
     EditText mUserName;
     @BindView(R.id.edtEmail)
@@ -31,6 +30,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
+    AppDbHelper appDbHelper;
+    RegisterPresenter mPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         ButterKnife.bind(this);
 
-        mPresenter = new RegisterPresenter(this);
+        mPresenter = new RegisterPresenter(this, appDbHelper);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

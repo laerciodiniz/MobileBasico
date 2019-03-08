@@ -17,7 +17,7 @@ public interface RegisterContract {
 
         void checkValues(String userName, String userEmail, String userPassword) throws SQLException;
 
-        boolean checkUserExist(String userName);
+        boolean checkUserExist(String userName) throws SQLException;
 
         void addUser(Users user) throws SQLException;
 

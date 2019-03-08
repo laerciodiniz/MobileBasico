@@ -1,22 +1,30 @@
 package com.example.mobilebasico.ui.register;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.mobilebasico.database.AppDbHelper;
+import com.example.mobilebasico.database.DbOpenHelper;
 import com.example.mobilebasico.model.Users;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public class RegisterPresenter <V extends RegisterContract.View> implements RegisterContract.Presenter<V>{
+public class RegisterPresenter implements RegisterContract.Presenter{
     //Classe Presenter extende Contrato da View e implementa o Contrato do Presenter
 
     private static final String TAG = RegisterPresenter.class.getSimpleName();
 
-    private RegisterContract.View view;
-    private AppDbHelper appDbHelper;
+    RegisterActivity view;
+    AppDbHelper appDbHelper;
 
-    public RegisterPresenter(RegisterContract.View view){
+    public RegisterPresenter(RegisterActivity view, AppDbHelper appDbHelper){
         this.view = view;
+        this.appDbHelper = appDbHelper;
+    }
+
+    public RegisterPresenter() {
     }
 
     @Override
@@ -31,6 +39,7 @@ public class RegisterPresenter <V extends RegisterContract.View> implements Regi
                     users.setName(userName);
                     users.setEmail(userEmail);
                     users.setPassword(userPassword);
+
                     Log.i(TAG, "Usuario: " + users);
 
                     //Verifica se o nome do usuario já existe
@@ -57,12 +66,22 @@ public class RegisterPresenter <V extends RegisterContract.View> implements Regi
     }
 
     @Override
-    public boolean checkUserExist(String userName) {
-        return false;
+    public boolean checkUserExist(String userName) throws SQLException {
+        AppDbHelper helper = new AppDbHelper(view.getApplicationContext());
+        List<Users> result = helper.queryUserName(userName);
+
+        if ( result.size() == 0){
+            Log.i(TAG,"Não existe: "+ userName );
+            return false;
+        }else{
+            Log.i(TAG,"Já existe: "+ userName + " = " + result.size());
+            return true;
+        }
     }
 
     @Override
     public void addUser(Users user) throws SQLException {
-        appDbHelper.insertUser(user);
+        AppDbHelper helper = new AppDbHelper(view.getApplicationContext());
+        helper.insertUser(user);
     }
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.mobilebasico.model.Events;
 import com.example.mobilebasico.model.Users;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -44,21 +45,21 @@ public class DbOpenHelper extends OrmLiteSqliteOpenHelper {
     }
 
     //Objeto DAO para poder ter acesso aos dados dos Usuarios
-    private RuntimeExceptionDao<Users, Integer> mUsersDao = null;
+    private Dao<Users, Integer> mUsersDao = null;
 
-    public RuntimeExceptionDao<Users, Integer> getUsersDao(){
+    public Dao<Users, Integer> getUsersDao() throws SQLException {
         if ( mUsersDao == null ){
-            mUsersDao = getRuntimeExceptionDao(Users.class);
+            mUsersDao = getDao(Users.class);
         }
         return mUsersDao;
     }
 
     //Objeto DAO para poder ter acesso aos dados dos Eventos
-    private RuntimeExceptionDao<Events, Integer> mEventsDao = null;
+    private Dao<Events, Integer> mEventsDao = null;
 
-    public RuntimeExceptionDao<Events, Integer> getEventsDao(){
+    public Dao<Events, Integer> getEventsDao() throws SQLException {
         if ( mEventsDao == null ){
-            mEventsDao = getRuntimeExceptionDao(Events.class);
+            mEventsDao = getDao(Events.class);
         }
         return mEventsDao;
     }
