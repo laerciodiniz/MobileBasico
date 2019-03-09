@@ -9,15 +9,16 @@ import java.sql.SQLException;
 public interface RegisterContract {
 
     interface View{
+
         void onError(String message);
+
     }
 
-    //Presenter extende a view
-    interface Presenter<V extends View>{
+    interface Presenter{
 
         void checkValues(String userName, String userEmail, String userPassword) throws SQLException;
 
-        boolean checkUserExist(String userName) throws SQLException;
+        boolean checkUserExist(String userEmail) throws SQLException;
 
         void addUser(Users user) throws SQLException;
 

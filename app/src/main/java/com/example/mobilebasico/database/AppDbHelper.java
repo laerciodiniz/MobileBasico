@@ -18,11 +18,9 @@ public class AppDbHelper implements DbHelper{
 
     RuntimeExceptionDao<Users, Integer> usersDao; //= getHelper().getUsersDao();
     RuntimeExceptionDao<Events, Integer> eventsDao; //= getHelper().getEventsDao();
-    RegisterPresenter mPresenter;
 
     public AppDbHelper(Context context) {
         dbHelper = new DbOpenHelper(context);
-        mPresenter = new RegisterPresenter();
         usersDao = dbHelper.getRuntimeExceptionDao(Users.class);
         eventsDao = dbHelper.getRuntimeExceptionDao(Events.class);
     }
@@ -50,10 +48,20 @@ public class AppDbHelper implements DbHelper{
     }
 
     @Override
-    public List<Users> queryUserName(String userName) throws SQLException {
+    public List<Users> queryUserEmail(String userEmail) throws SQLException {
         return usersDao.queryBuilder()
                 .where()
-                .eq(Users.COL_NAME, userName)
+                .eq(Users.COL_EMAIL, userEmail)
+                .query();
+    }
+
+    @Override
+    public List<Users> queryValidateLogin(String userEmail, String userPassword) throws SQLException {
+        return usersDao.queryBuilder()
+                .where()
+                .eq(Users.COL_EMAIL, userEmail)
+                .and()
+                .eq(Users.COL_PASSWORD, userPassword)
                 .query();
     }
 }

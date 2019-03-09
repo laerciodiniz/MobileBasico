@@ -14,6 +14,7 @@ public interface DbHelper {
 
     Users insertUser(Users user) throws SQLException;
 
-    List<Users> queryUserName(String userName) throws SQLException;
+    List<Users> queryUserEmail(String userEmail) throws SQLException;
 
+    List<Users> queryValidateLogin(String userEmail, String userPassword) throws SQLException;
 }

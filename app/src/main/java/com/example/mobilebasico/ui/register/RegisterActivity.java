@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterContract.View{
     //Classe principal implementa o contrato da View
@@ -42,31 +43,19 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         mPresenter = new RegisterPresenter(this, appDbHelper);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String u = mUserName.getText().toString();
-                String e = mUserEmail.getText().toString();
-                String p = mUserPassword.getText().toString();
-
-                try {
-                    mPresenter.checkValues( u, e, p );
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
-
     }
 
-   /* @OnClick(R.id.btnRegister)
-    public void btnRegisterClick(){
-        mPresenter.checkValues(
-                mUserName.getText().toString(),
-                mUserEmail.getText().toString(),
-                mUserPassword.getText().toString() );
-    }*/
+   @OnClick(R.id.btnRegister)
+    public void btnRegisterClick() {
+       try {
+           mPresenter.checkValues(
+                   mUserName.getText().toString(),
+                   mUserEmail.getText().toString(),
+                   mUserPassword.getText().toString() );
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+   }
 
     @Override
     public void onError(String message) {

@@ -24,9 +24,6 @@ public class RegisterPresenter implements RegisterContract.Presenter{
         this.appDbHelper = appDbHelper;
     }
 
-    public RegisterPresenter() {
-    }
-
     @Override
     public void checkValues(String userName, String userEmail, String userPassword) throws SQLException {
         //Valida se os campos foram preenchidos
@@ -43,8 +40,8 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                     Log.i(TAG, "Usuario: " + users);
 
                     //Verifica se o nome do usuario já existe
-                    if ( checkUserExist(userName) ) {
-                        view.onError("Este usuário já existe.");
+                    if ( checkUserExist(userEmail) ) {
+                        view.onError("Este e-mail já existe.");
                         Log.i(TAG, "Já existe Usuario: " + userName);
                     }else{
                         //Adiciona o usuario no banco de dados
@@ -66,15 +63,15 @@ public class RegisterPresenter implements RegisterContract.Presenter{
     }
 
     @Override
-    public boolean checkUserExist(String userName) throws SQLException {
+    public boolean checkUserExist(String userEmail) throws SQLException {
         AppDbHelper helper = new AppDbHelper(view.getApplicationContext());
-        List<Users> result = helper.queryUserName(userName);
+        List<Users> result = helper.queryUserEmail(userEmail);
 
         if ( result.size() == 0){
-            Log.i(TAG,"Não existe: "+ userName );
+            Log.i(TAG,"Não existe: "+ userEmail );
             return false;
         }else{
-            Log.i(TAG,"Já existe: "+ userName + " = " + result.size());
+            Log.i(TAG,"Já existe: "+ userEmail + " = " + result.size());
             return true;
         }
     }
