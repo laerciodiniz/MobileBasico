@@ -64,4 +64,17 @@ public class AppDbHelper implements DbHelper{
                 .eq(Users.COL_PASSWORD, userPassword)
                 .query();
     }
+
+    @Override
+    public Users queryUser(String userEmail) throws SQLException {
+
+        Users user = (Users) usersDao.queryBuilder()
+                .where()
+                .eq(Users.COL_EMAIL, userEmail)
+                .and()
+                .eq(Users.COL_EMAIL, userEmail)
+                .queryForFirst();
+
+        return user;
+    }
 }

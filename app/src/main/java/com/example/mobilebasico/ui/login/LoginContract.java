@@ -1,5 +1,7 @@
 package com.example.mobilebasico.ui.login;
 
+import com.example.mobilebasico.model.Users;
+
 import java.sql.SQLException;
 
 public interface LoginContract {
@@ -15,6 +17,8 @@ public interface LoginContract {
         void checkLogin(String userEmail, String userPassword) throws SQLException;
 
         boolean validateLogin(String userEmail, String userPassword) throws SQLException;
+
+        int getCurrentUser(String userEmail) throws SQLException;
 
     }
 

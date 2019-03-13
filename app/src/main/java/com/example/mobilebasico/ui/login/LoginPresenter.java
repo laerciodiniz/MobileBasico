@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Users;
 import com.example.mobilebasico.ui.event.EventActivity;
+import com.example.mobilebasico.ui.main.MainActivity;
 import com.j256.ormlite.stmt.SelectArg;
 
 import java.sql.SQLException;
@@ -24,11 +25,21 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     @Override
+    public int getCurrentUser(String userEmail) throws SQLException {
+        AppDbHelper helper = new AppDbHelper(view.getApplicationContext());
+        Users user = helper.queryUser(userEmail);
+        return user.getId();
+    }
+
+    @Override
     public void checkLogin(String userEmail, String userPassword) throws SQLException {
 
         if ( !userEmail.isEmpty() || !userPassword.isEmpty() ) {
             if ( validateLogin(userEmail, userPassword) ){
-                view.startActivity(new Intent(view.getApplicationContext(), EventActivity.class));
+                Intent intent = new Intent(view.getApplicationContext(), MainActivity.class);
+                intent.putExtra("USER_ID", getCurrentUser(userEmail));
+                view.startActivity(intent);
+
             }else{
                 view.onError("E-mail ou senha inválido.");
             }
@@ -51,4 +62,7 @@ public class LoginPresenter implements LoginContract.Presenter{
             return false;
         }
     }
+
+
+
 }
