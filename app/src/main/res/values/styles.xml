@@ -8,6 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Drawer" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- MaterialDrawer specific values -->
+        <item name="material_drawer_background">@color/md_white_1000</item>
+        <item name="material_drawer_primary_text">@color/md_grey_900</item>
+        <item name="material_drawer_secondary_text">@color/md_grey_850</item>
+        <item name="material_drawer_selected_text">@color/themeColorOnPrimary</item>
+        <item name="material_drawer_selected">@color/themeColorPrimaryVariant</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_dark_hint_text</item>
+        <item name="material_drawer_divider">@color/material_drawer_dark_divider</item>
+        <item name="material_drawer_selected_legacy">@color/material_drawer_dark_selected_legacy
+        </item>
+
+        <item name="material_drawer_header_selection_text">
+            @color/material_drawer_dark_primary_text
+        </item>
+
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
