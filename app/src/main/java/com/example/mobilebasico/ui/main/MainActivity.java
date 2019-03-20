@@ -18,13 +18,18 @@ import com.example.mobilebasico.config.SettingsActivity;
 import com.example.mobilebasico.ui.event.EventActivity;
 import com.example.mobilebasico.ui.login.LoginActivity;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int SETTINGS_ID = 3;
 
     private int mUserId;
+    private String mUserName;
+    private String mUserEmail;
+
     Drawer mDrawer = null;
 
     @BindView(R.id.toolbar)
@@ -47,12 +55,29 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mUserId = getIntent().getExtras().getInt("USER_ID");
-        Log.i(TAG,"USUARIO LOGADO:" + mUserId);
+        mUserName = getIntent().getExtras().getString("USER_NAME");
+        mUserEmail = getIntent().getExtras().getString("USER_EMAIL");
+
+        Log.i(TAG,"USUARIO LOGADO:" + mUserId + " " + mUserName + " " + mUserEmail);
 
         setSupportActionBar(toolbar);
 
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .addProfiles(
+                        new ProfileDrawerItem().withName(mUserName).withEmail(mUserEmail).withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+
         mDrawer = new DrawerBuilder(this)
                 .withToolbar(toolbar)
+                .withAccountHeader(headerResult)
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIdentifier(1).withIcon(FontAwesome.Icon.faw_home),
@@ -68,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = null;
 
                             if ( drawerItem.getIdentifier() == HOME_ID ) {
-                                intent = new Intent(MainActivity.this, MainActivity.class);
+                                mDrawer.closeDrawer();
                             }else if ( drawerItem.getIdentifier() == EVENT_ID ){
                                 intent = new Intent(MainActivity.this, EventActivity.class);
                             }else if ( drawerItem.getIdentifier() == SETTINGS_ID ){
@@ -117,7 +142,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.menu_exit :
-                System.exit(0); //Finaliza o App
+                //Finalizar o app
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
 

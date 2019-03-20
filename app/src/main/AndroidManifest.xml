@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity" android:theme="@style/AppTheme.Drawer"></activity>
+        <activity android:name=".ui.main.MainActivity" android:theme="@style/CustomTheme"></activity>
         <activity android:name=".ui.event.EventActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.login.LoginActivity" />

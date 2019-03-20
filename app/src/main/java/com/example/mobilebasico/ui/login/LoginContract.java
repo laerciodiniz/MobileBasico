@@ -18,7 +18,7 @@ public interface LoginContract {
 
         boolean validateLogin(String userEmail, String userPassword) throws SQLException;
 
-        int getCurrentUser(String userEmail) throws SQLException;
+        Users getCurrentUser(String userEmail) throws SQLException;
 
     }
 

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MobileBasico</string>
+
+    <string name="title_event">Events</string>
+    <string name="title_settings">Settings</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

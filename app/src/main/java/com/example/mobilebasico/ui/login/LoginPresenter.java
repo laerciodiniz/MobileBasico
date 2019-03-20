@@ -25,10 +25,10 @@ public class LoginPresenter implements LoginContract.Presenter{
     }
 
     @Override
-    public int getCurrentUser(String userEmail) throws SQLException {
+    public Users getCurrentUser(String userEmail) throws SQLException {
         AppDbHelper helper = new AppDbHelper(view.getApplicationContext());
         Users user = helper.queryUser(userEmail);
-        return user.getId();
+        return user;
     }
 
     @Override
@@ -36,8 +36,13 @@ public class LoginPresenter implements LoginContract.Presenter{
 
         if ( !userEmail.isEmpty() || !userPassword.isEmpty() ) {
             if ( validateLogin(userEmail, userPassword) ){
+
+                Users user = getCurrentUser(userEmail);
+
                 Intent intent = new Intent(view.getApplicationContext(), MainActivity.class);
-                intent.putExtra("USER_ID", getCurrentUser(userEmail));
+                intent.putExtra("USER_ID", user.getId());
+                intent.putExtra("USER_NAME", user.getName());
+                intent.putExtra("USER_EMAIL", userEmail);
                 view.startActivity(intent);
 
             }else{
