@@ -1,5 +1,7 @@
 package com.example.mobilebasico.model;
 
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 

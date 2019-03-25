@@ -1,18 +1,17 @@
 package com.example.mobilebasico.ui.register;
 
-import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.mobilebasico.database.AppDbHelper;
-import com.example.mobilebasico.database.DbOpenHelper;
 import com.example.mobilebasico.model.Users;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.example.mobilebasico.ui.main.MainActivity;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class RegisterPresenter implements RegisterContract.Presenter{
-    //Classe Presenter extende Contrato da View e implementa o Contrato do Presenter
+    //Classe Presenter implementa o Contrato do Presenter
 
     private static final String TAG = RegisterPresenter.class.getSimpleName();
 
@@ -37,27 +36,30 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                     users.setEmail(userEmail);
                     users.setPassword(userPassword);
 
-                    Log.i(TAG, "Usuario: " + users);
-
                     //Verifica se o nome do usuario já existe
                     if ( checkUserExist(userEmail) ) {
-                        view.onError("Este e-mail já existe.");
-                        Log.i(TAG, "Já existe Usuario: " + userName);
+                        view.onMessage("Este e-mail já existe.");
                     }else{
                         //Adiciona o usuario no banco de dados
                         addUser(users);
-                        Log.i(TAG, "Add Usuario: " + users);
+                        view.onMessage("Conta criada com sucesso.");
+                        view.finish();
+                        Intent intent = new Intent(view.getApplicationContext(), MainActivity.class);
+                        intent.putExtra("USER_ID", users.getId());
+                        intent.putExtra("USER_NAME", users.getName());
+                        intent.putExtra("USER_EMAIL", userEmail);
+                        view.startActivity(intent);
                     }
 
 
                 }else{
-                    view.onError("Informe a senha.");
+                    view.onMessage("Informe a senha.");
                 }
             }else{
-                view.onError("Informe o e-mail.");
+                view.onMessage("Informe o e-mail.");
             }
         }else{
-            view.onError("Informe o usuário.");
+            view.onMessage("Informe o usuário.");
         }
 
     }

@@ -60,7 +60,6 @@ public class LoginPresenter implements LoginContract.Presenter{
         List<Users> result = helper.queryValidateLogin(userEmail, userPassword);
 
         if ( result.size() > 0 ){
-            Log.i(TAG,"Login realizado com sucesso: ");
             return true;
         }else{
             view.onError("E-mail ou senha inválidos.");

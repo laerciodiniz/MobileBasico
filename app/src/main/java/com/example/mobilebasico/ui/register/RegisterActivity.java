@@ -1,7 +1,6 @@
 package com.example.mobilebasico.ui.register;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -58,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
    }
 
     @Override
-    public void onError(String message) {
+    public void onMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

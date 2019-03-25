@@ -1,13 +1,7 @@
 package com.example.mobilebasico.ui.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,9 +21,13 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawer.closeDrawer();
                             }else if ( drawerItem.getIdentifier() == EVENT_ID ){
                                 intent = new Intent(MainActivity.this, EventActivity.class);
+                                intent.putExtra("USER_ID", mUserId);
                             }else if ( drawerItem.getIdentifier() == SETTINGS_ID ){
                                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                             }

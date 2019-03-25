@@ -10,7 +10,7 @@ public interface RegisterContract {
 
     interface View{
 
-        void onError(String message);
+        void onMessage(String message);
 
     }
 
