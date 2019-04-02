@@ -2,6 +2,9 @@ package com.example.mobilebasico.ui.event;
 
 import com.example.mobilebasico.model.Events;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public interface EventContract {
 
     interface View{
@@ -12,9 +15,11 @@ public interface EventContract {
 
     interface Presenter{
 
-        void checkValues(String dataEvento, String descricaoEvento);
+        void checkValues(String userMail, String dataEvento, String descricaoEvento) throws SQLException;
 
-        void insertEvent(Events events);
+        void insertEvent(String userMail, String dataEvento, String descricaoEvento) throws SQLException;
+
+        List<Events> getListEvents(int userId) throws SQLException;
 
     }
 

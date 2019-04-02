@@ -7,6 +7,7 @@ import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Users;
 import com.example.mobilebasico.ui.event.EventActivity;
 import com.example.mobilebasico.ui.main.MainActivity;
+import com.example.mobilebasico.utils.AppConstants;
 import com.j256.ormlite.stmt.SelectArg;
 
 import java.sql.SQLException;
@@ -40,9 +41,9 @@ public class LoginPresenter implements LoginContract.Presenter{
                 Users user = getCurrentUser(userEmail);
 
                 Intent intent = new Intent(view.getApplicationContext(), MainActivity.class);
-                intent.putExtra("USER_ID", user.getId());
-                intent.putExtra("USER_NAME", user.getName());
-                intent.putExtra("USER_EMAIL", userEmail);
+                intent.putExtra(AppConstants.BUNDLE_USER_ID, user.getId());
+                intent.putExtra(AppConstants.BUNDLE_USER_NAME, user.getName());
+                intent.putExtra(AppConstants.BUNDLE_USER_MAIL, userEmail);
                 view.startActivity(intent);
 
             }else{

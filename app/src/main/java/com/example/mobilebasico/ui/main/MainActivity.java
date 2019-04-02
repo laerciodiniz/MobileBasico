@@ -11,6 +11,7 @@ import com.example.mobilebasico.R;
 import com.example.mobilebasico.config.SettingsActivity;
 import com.example.mobilebasico.ui.event.EventActivity;
 import com.example.mobilebasico.ui.login.LoginActivity;
+import com.example.mobilebasico.utils.AppConstants;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -52,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mUserId = getIntent().getExtras().getInt("USER_ID");
-        mUserName = getIntent().getExtras().getString("USER_NAME");
-        mUserEmail = getIntent().getExtras().getString("USER_EMAIL");
+        mUserId = getIntent().getExtras().getInt(AppConstants.BUNDLE_USER_ID);
+        mUserName = getIntent().getExtras().getString(AppConstants.BUNDLE_USER_NAME);
+        mUserEmail = getIntent().getExtras().getString(AppConstants.BUNDLE_USER_MAIL);
 
         Log.i(TAG,"USUARIO LOGADO:" + mUserId + " " + mUserName + " " + mUserEmail);
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawer.closeDrawer();
                             }else if ( drawerItem.getIdentifier() == EVENT_ID ){
                                 intent = new Intent(MainActivity.this, EventActivity.class);
-                                intent.putExtra("USER_ID", mUserId);
+                                intent.putExtra(AppConstants.BUNDLE_USER_MAIL, mUserEmail);
                             }else if ( drawerItem.getIdentifier() == SETTINGS_ID ){
                                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                             }
