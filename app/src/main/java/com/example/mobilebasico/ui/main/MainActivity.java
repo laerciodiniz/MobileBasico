@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int mUserId;
     private String mUserName;
-    private String mUserEmail;
+    private String mUserMail;
 
     Drawer mDrawer = null;
 
@@ -55,16 +55,16 @@ public class MainActivity extends AppCompatActivity {
 
         mUserId = getIntent().getExtras().getInt(AppConstants.BUNDLE_USER_ID);
         mUserName = getIntent().getExtras().getString(AppConstants.BUNDLE_USER_NAME);
-        mUserEmail = getIntent().getExtras().getString(AppConstants.BUNDLE_USER_MAIL);
+        mUserMail = getIntent().getExtras().getString(AppConstants.BUNDLE_USER_MAIL);
 
-        Log.i(TAG,"USUARIO LOGADO:" + mUserId + " " + mUserName + " " + mUserEmail);
+        Log.i(TAG,"USUARIO LOGADO:" + mUserId + " " + mUserName + " " + mUserMail);
 
         setSupportActionBar(toolbar);
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(mUserName).withEmail(mUserEmail).withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                        new ProfileDrawerItem().withName(mUserName).withEmail(mUserMail).withIcon(GoogleMaterial.Icon.gmd_account_circle)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -95,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawer.closeDrawer();
                             }else if ( drawerItem.getIdentifier() == EVENT_ID ){
                                 intent = new Intent(MainActivity.this, EventActivity.class);
-                                intent.putExtra(AppConstants.BUNDLE_USER_MAIL, mUserEmail);
+                                intent.putExtra(AppConstants.BUNDLE_USER_MAIL, mUserMail);
+                                intent.putExtra(AppConstants.BUNDLE_USER_ID, mUserId);
                             }else if ( drawerItem.getIdentifier() == SETTINGS_ID ){
                                 intent = new Intent(MainActivity.this, SettingsActivity.class);
                             }

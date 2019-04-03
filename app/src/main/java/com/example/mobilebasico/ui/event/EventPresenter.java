@@ -5,9 +5,10 @@ import android.util.Log;
 import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Events;
 import com.example.mobilebasico.model.Users;
-import com.example.mobilebasico.utils.DataCustom;
+import com.example.mobilebasico.utils.DateCustom;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class EventPresenter implements EventContract.Presenter {
@@ -32,11 +33,11 @@ public class EventPresenter implements EventContract.Presenter {
         Users user = helper.queryUser(userMail);
 
         event.setUser_id(user);
-        event.setDate_create( DataCustom.dataAtual() );
+        event.setDate_create( DateCustom.dataAtual() );//DateCustom.ConvertToDate(DateCustom.dataAtual()) );
         event.setDate_event( dataEvento );
         event.setDescription( descricaoEvento );
 
-        Log.i(TAG,"ADD EVENT" + event);
+        Log.i(TAG,"ADD EVENT" + event + dataEvento);
 
         helper.insertEvent(event);
     }
@@ -46,6 +47,8 @@ public class EventPresenter implements EventContract.Presenter {
 
         if ( !dataEvento.isEmpty() ){
             if ( !descricaoEvento.isEmpty() ) {
+
+                //Date dateF = DateCustom.ConvertToDate(dataEvento);
 
                 insertEvent(userMail, dataEvento, descricaoEvento);
 
@@ -61,7 +64,6 @@ public class EventPresenter implements EventContract.Presenter {
     @Override
     public List<Events> getListEvents(int userId) throws SQLException {
         AppDbHelper helper = new AppDbHelper(view.getContext());
-        userId = 7;
-        return helper.queryEvents(userId);
+        return helper.queryEvents( userId );
     }
 }

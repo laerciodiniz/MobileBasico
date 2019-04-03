@@ -1,7 +1,6 @@
 package com.example.mobilebasico.ui.event;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import com.example.mobilebasico.R;
 import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Events;
 import com.example.mobilebasico.utils.AppConstants;
+import com.example.mobilebasico.utils.DateCustom;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.SQLException;
@@ -42,10 +42,10 @@ public class EventFragment extends Fragment implements EventContract.View{
     private String mUserMail;
     private int mUserId;
 
-    public static EventFragment newInstance(String mail, int user){
+    public static EventFragment newInstance(String mail, int userId){
         Bundle args = new Bundle();
         args.putString(AppConstants.BUNDLE_USER_MAIL, mail);
-        args.putInt(AppConstants.BUNDLE_USER_ID, user);
+        args.putInt(AppConstants.BUNDLE_USER_ID, userId);
         EventFragment f = new EventFragment();
         f.setArguments(args);
         return f;
@@ -66,11 +66,13 @@ public class EventFragment extends Fragment implements EventContract.View{
         mUserMail = getArguments().getString(AppConstants.BUNDLE_USER_MAIL);
         mUserId = getArguments().getInt(AppConstants.BUNDLE_USER_ID);
 
-        Toast.makeText(getContext(), mUserId + " - " + mUserMail, Toast.LENGTH_LONG).show();
+        mDataEvento.setText( DateCustom.dataAtual() );
+        mDescricaoEvento.requestFocus();
+        //Toast.makeText(getContext(), mUserId + " - " + mUserMail, Toast.LENGTH_LONG).show();
 
         mPresenter = new EventPresenter(this, appDbHelper);
 
-        //Pega a lista do banco de dados e armazena na Lista que vai par ao adapter
+        //Pega a lista do banco de dados e armazena na Lista que vai para o adapter
         try {
             events = mPresenter.getListEvents( mUserId );
         } catch (SQLException e) {
@@ -92,10 +94,11 @@ public class EventFragment extends Fragment implements EventContract.View{
 
         try {
             mPresenter.checkValues( mUserMail, mDataEvento.getText().toString(), mDescricaoEvento.getText().toString() );
+            mAdapter.notifyDataSetChanged();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        mAdapter.notifyDataSetChanged();
+
     }
 
     @Override

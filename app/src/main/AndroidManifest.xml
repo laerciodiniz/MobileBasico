@@ -16,7 +16,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/CustomTheme" />
-        <activity android:name=".ui.event.EventActivity" />
+        <activity android:name=".ui.event.EventActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity

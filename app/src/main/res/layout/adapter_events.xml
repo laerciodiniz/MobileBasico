@@ -4,16 +4,18 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-
     <TextView
         android:id="@+id/textDataEvento"
         android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
+        android:gravity="center_vertical"
         android:text="DataEvento" />
 
     <TextView
         android:id="@+id/textDescricaoEvento"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
+        android:gravity="center_vertical"
         android:text="DescricaoEvento" />
+
 </LinearLayout>

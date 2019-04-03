@@ -18,12 +18,12 @@ import butterknife.ButterKnife;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHolder> {
 
-    List<Events> events;
-    Context context;
+    List<Events> mEvents;
+    Context mContext;
 
     public EventAdapter(List<Events> events, Context context){
-        this.events = events;
-        this.context = context;
+        this.mEvents = events;
+        this.mContext = context;
     }
 
     @NonNull
@@ -37,16 +37,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventsViewHo
     @Override
     public void onBindViewHolder(@NonNull EventsViewHolder holder, int position) {
 
-        Events event = events.get(position);
+        Events event = mEvents.get(position);
 
-        holder.mDataEvento.setText(event.getDate_event());
+        holder.mDataEvento.setText(event.getDate_event().toString());
         holder.mDescricaoEvento.setText(event.getDescription());
 
     }
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return mEvents.size();
     }
 
     static class EventsViewHolder extends RecyclerView.ViewHolder{

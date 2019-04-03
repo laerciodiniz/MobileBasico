@@ -29,6 +29,7 @@ public class AppDbHelper implements DbHelper{
     public List<Events> queryEvents(int userId) throws SQLException {
 
         List<Events> eventsList = eventsDao.queryBuilder()
+                    //.orderBy(Events.COL_DATE_EVENT, true)
                     .where()
                     .eq(Events.COL_USER_ID, userId)
                     .query();

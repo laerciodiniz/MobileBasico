@@ -3,6 +3,7 @@ package com.example.mobilebasico.ui.event;
 import com.example.mobilebasico.model.Events;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public interface EventContract {
