@@ -15,7 +15,6 @@ public class DateCustom {
 
     }
 
-
     public static Date ConvertToDate(String dataValue) {
 
         Date dateFormated = null;

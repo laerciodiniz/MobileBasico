@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Users;
 import com.example.mobilebasico.ui.main.MainActivity;
+import com.example.mobilebasico.utils.AppConstants;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -31,23 +32,25 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                 if ( !userPassword.isEmpty() ){
 
                     //Cria o objeto Users
-                    Users users = new Users();
-                    users.setName(userName);
-                    users.setEmail(userEmail);
-                    users.setPassword(userPassword);
+                    Users user = new Users();
+                    user.setName(userName);
+                    user.setEmail(userEmail);
+                    user.setPassword(userPassword);
 
                     //Verifica se o nome do usuario já existe
                     if ( checkUserExist(userEmail) ) {
                         view.onMessage("Este e-mail já existe.");
                     }else{
                         //Adiciona o usuario no banco de dados
-                        addUser(users);
+                        addUser(user);
                         view.onMessage("Conta criada com sucesso.");
-                        view.finish();
+
                         Intent intent = new Intent(view.getApplicationContext(), MainActivity.class);
-                        intent.putExtra("USER_ID", users.getId());
-                        intent.putExtra("USER_NAME", users.getName());
-                        intent.putExtra("USER_EMAIL", userEmail);
+                        intent.putExtra(AppConstants.BUNDLE_USER_ID, user.getId());
+                        intent.putExtra(AppConstants.BUNDLE_USER_NAME, user.getName());
+                        intent.putExtra(AppConstants.BUNDLE_USER_MAIL, userEmail);
+
+                        view.finish();
                         view.startActivity(intent);
                     }
 

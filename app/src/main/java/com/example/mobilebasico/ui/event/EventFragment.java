@@ -68,7 +68,6 @@ public class EventFragment extends Fragment implements EventContract.View{
 
         mDataEvento.setText( DateCustom.dataAtual() );
         mDescricaoEvento.requestFocus();
-        //Toast.makeText(getContext(), mUserId + " - " + mUserMail, Toast.LENGTH_LONG).show();
 
         mPresenter = new EventPresenter(this, appDbHelper);
 
@@ -94,6 +93,7 @@ public class EventFragment extends Fragment implements EventContract.View{
 
         try {
             mPresenter.checkValues( mUserMail, mDataEvento.getText().toString(), mDescricaoEvento.getText().toString() );
+            onMessage("Evento adicionado com sucesso.");
             mAdapter.notifyDataSetChanged();
         } catch (SQLException e) {
             e.printStackTrace();

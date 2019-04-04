@@ -1,14 +1,11 @@
 package com.example.mobilebasico.ui.login;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Users;
-import com.example.mobilebasico.ui.event.EventActivity;
 import com.example.mobilebasico.ui.main.MainActivity;
 import com.example.mobilebasico.utils.AppConstants;
-import com.j256.ormlite.stmt.SelectArg;
 
 import java.sql.SQLException;
 import java.util.List;
