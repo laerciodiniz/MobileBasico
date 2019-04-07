@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_category_personal_one">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="send_mail"
+        android:summary="@string/pref_auto_send_mail_summary"
+        android:title="@string/pref_auto_send_mail"
+        />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

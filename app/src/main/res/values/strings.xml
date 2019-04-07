@@ -92,4 +92,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Settings Personal -->
+    <string name="pref_header_custom">Custom</string>
+    <string name="pref_category_personal_one">Optional</string>
+    <string name="pref_auto_send_mail">Enviar evento por e-mail.</string>
+    <string name="pref_auto_send_mail_summary">Envia o evento automaticamente por e-mail ao salvar um novo evento.</string>
+
 </resources>
