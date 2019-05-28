@@ -74,7 +74,7 @@ public class EventPresenter implements EventContract.Presenter {
     @Override
     public void sendMail() {
 
-        mPrefs = view.getContext().getSharedPreferences()
+//        mPrefs = view.getContext().getSharedPreferences()
 
         boolean sendMail =  mPrefs.getBoolean("send_mail",true);
 
