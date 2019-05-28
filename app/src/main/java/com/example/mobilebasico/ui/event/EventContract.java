@@ -22,6 +22,8 @@ public interface EventContract {
 
         List<Events> getListEvents(int userId) throws SQLException;
 
+        void sendMail();
+
     }
 
 }
