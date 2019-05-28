@@ -1,5 +1,6 @@
 package com.example.mobilebasico.ui.event;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -74,10 +75,10 @@ public class EventPresenter implements EventContract.Presenter {
     @Override
     public void sendMail() {
 
-//        mPrefs = view.getContext().getSharedPreferences()
+        mPrefs = view.getContext().getSharedPreferences("user_preferences", Context.MODE_PRIVATE);
 
         boolean sendMail =  mPrefs.getBoolean("send_mail",true);
-
+        Log.i("NEWEMAIL","PERMISSÃO SEND MAIL = " + sendMail);
         if ( sendMail ) {
 
             Intent mail = new Intent(Intent.ACTION_SEND);
