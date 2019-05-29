@@ -1,9 +1,13 @@
 package com.example.mobilebasico.ui.event;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Events;
@@ -55,7 +59,7 @@ public class EventPresenter implements EventContract.Presenter {
                 //Date dateF = DateCustom.ConvertToDate(dataEvento);
 
                 insertEvent(userMail, dataEvento, descricaoEvento);
-                sendMail();
+                sendMail(descricaoEvento + " - " + dataEvento);
 
             }else {
                 view.onMessage("Informe uma descrição.");
@@ -73,22 +77,35 @@ public class EventPresenter implements EventContract.Presenter {
     }
 
     @Override
-    public void sendMail() {
+    public void sendMail(String DescricaoEvento) {
 
-        mPrefs = view.getContext().getSharedPreferences("user_preferences", Context.MODE_PRIVATE);
+//        mPrefs = view.getContext().getSharedPreferences("user_preferences", Context.MODE_PRIVATE);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
 
         boolean sendMail =  mPrefs.getBoolean("send_mail",true);
-        Log.i("NEWEMAIL","PERMISSÃO SEND MAIL = " + sendMail);
+
         if ( sendMail ) {
 
-            Intent mail = new Intent(Intent.ACTION_SEND);
+            Intent mailSelect = new Intent(Intent.ACTION_SENDTO);
+            mailSelect.setData(Uri.parse("mailto:"));
+
+            final Intent mail = new Intent(Intent.ACTION_SEND);
             mail.putExtra(Intent.EXTRA_EMAIL, new String[]{"laerciodiniz@gmail.com"});
-            mail.putExtra(Intent.EXTRA_SUBJECT,"Novo Evento Adicionado");
-            mail.putExtra(Intent.EXTRA_TEXT,"Novo Evento TESTE");
+            mail.putExtra(Intent.EXTRA_SUBJECT,"Novo Evento");
+            mail.putExtra(Intent.EXTRA_TEXT,DescricaoEvento);
+            mail.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            mail.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            mail.setSelector( mailSelect );
 
-            mail.setType("message/rfc822");
-            view.startActivity( Intent.createChooser(mail, "Escolha o app de e-mail") );
-
+            //mail.setType("message/rfc822");
+            try{
+                if ( mail.resolveActivity(view.getContext().getPackageManager()) != null );{
+                    view.startActivity( mail );
+                }
+                // view.startActivity( Intent.createChooser(mail, "Escolha o app de e-mail") );
+            }catch (ActivityNotFoundException ex){
+                view.onMessage("Falha ao enviar e-mail.");
+            }
         }
 
     }
