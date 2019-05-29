@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.mobilebasico.R;
@@ -11,6 +12,7 @@ import com.example.mobilebasico.database.AppDbHelper;
 import com.example.mobilebasico.model.Events;
 import com.example.mobilebasico.utils.AppConstants;
 import com.example.mobilebasico.utils.DateCustom;
+import com.example.mobilebasico.utils.RecyclerItemClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.SQLException;
@@ -84,6 +86,30 @@ public class EventFragment extends Fragment implements EventContract.View{
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter( mAdapter );
+
+        //Evento de clique do RecyclerView
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        getContext(),
+                        recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        }
+                )
+        );
 
         return view ;
     }
