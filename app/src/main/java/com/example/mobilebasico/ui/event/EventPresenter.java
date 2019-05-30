@@ -51,6 +51,13 @@ public class EventPresenter implements EventContract.Presenter {
     }
 
     @Override
+    public void deleteEvent(int eventId) {
+        AppDbHelper helper = new AppDbHelper(view.getContext());
+        helper.deleteEvent( eventId );
+        view.onMessage("Evento excluído com sucesso.");
+    }
+
+    @Override
     public void checkValues(String userMail, String dataEvento, String descricaoEvento) throws SQLException {
 
         if ( !dataEvento.isEmpty() ){
@@ -60,7 +67,7 @@ public class EventPresenter implements EventContract.Presenter {
 
                 insertEvent(userMail, dataEvento, descricaoEvento);
                 sendMail(descricaoEvento + " - " + dataEvento);
-
+                view.onMessage("Evento adicionado com sucesso.");
             }else {
                 view.onMessage("Informe uma descrição.");
             }
@@ -100,7 +107,14 @@ public class EventPresenter implements EventContract.Presenter {
             //mail.setType("message/rfc822");
             try{
                 if ( mail.resolveActivity(view.getContext().getPackageManager()) != null );{
-                    view.startActivity( mail );
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.startActivity( mail );
+                        }
+                    }).start();
+
                 }
                 // view.startActivity( Intent.createChooser(mail, "Escolha o app de e-mail") );
             }catch (ActivityNotFoundException ex){
@@ -109,4 +123,5 @@ public class EventPresenter implements EventContract.Presenter {
         }
 
     }
+
 }

@@ -1,5 +1,8 @@
 package com.example.mobilebasico.ui.event;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,12 +98,15 @@ public class EventFragment extends Fragment implements EventContract.View{
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-
+                                Events event = events.get(position);
+                                onAlertDialog(event.getDate_event(), event.getDescription());
                             }
 
                             @Override
                             public void onLongItemClick(View view, int position) {
-
+                                Events event = events.get(position);
+                                onAlertDialogDeleteEvent(position, event.getId(),"Tem certeza que quer excluir o evento " + event.getDate_event() + " - "
+                                        + event.getDescription() + "?");
                             }
 
                             @Override
@@ -119,7 +125,6 @@ public class EventFragment extends Fragment implements EventContract.View{
 
         try {
             mPresenter.checkValues( mUserMail, mDataEvento.getText().toString(), mDescricaoEvento.getText().toString() );
-            onMessage("Evento adicionado com sucesso.");
             mAdapter.notifyDataSetChanged();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,5 +135,43 @@ public class EventFragment extends Fragment implements EventContract.View{
     @Override
     public void onMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAlertDialog(String title, String message) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle( title );
+        alertDialog.setMessage( message );
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+
+    }
+
+    @Override
+    public void onAlertDialogDeleteEvent(int position, int eventId, String message) {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle( "Excluir evento" );
+        alertDialog.setMessage( message );
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mPresenter.deleteEvent(eventId);
+                mAdapter.notifyItemRemoved(position);
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                onMessage("Exclusão cancelada.");
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 }

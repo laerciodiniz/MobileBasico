@@ -43,6 +43,11 @@ public class AppDbHelper implements DbHelper{
     }
 
     @Override
+    public void deleteEvent(int eventId) {
+        eventsDao.deleteById(eventId);
+    }
+
+    @Override
     public Users insertUser(Users user) throws SQLException {
         usersDao.create(user);
         return user;

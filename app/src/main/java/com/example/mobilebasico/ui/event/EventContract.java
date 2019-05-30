@@ -1,5 +1,7 @@
 package com.example.mobilebasico.ui.event;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mobilebasico.model.Events;
 
 import java.sql.SQLException;
@@ -11,6 +13,8 @@ public interface EventContract {
     interface View{
 
         void onMessage(String message);
+        void onAlertDialog(String title, String message);
+        void onAlertDialogDeleteEvent(int position, int eventId, String message);
 
     }
 
@@ -23,6 +27,8 @@ public interface EventContract {
         List<Events> getListEvents(int userId) throws SQLException;
 
         void sendMail(String DescricaoEvento);
+
+        void deleteEvent(int eventId);
 
     }
 

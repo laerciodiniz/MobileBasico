@@ -20,4 +20,6 @@ public interface DbHelper {
 
     Users queryUser(String userEmail) throws SQLException;
 
+    void deleteEvent(int eventId);
+
 }
