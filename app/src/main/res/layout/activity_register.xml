@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.register.RegisterActivity">
 
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
@@ -22,8 +23,7 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -31,18 +31,25 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="150dp"
-        android:layout_marginBottom="8dp"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:hint="Nome"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/edtEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        android:layout_marginBottom="8dp">
 
-    <EditText
-        android:id="@+id/edtEmail"
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="Nome"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/edtEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            android:drawableLeft="@drawable/ic_user_black_24dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -50,14 +57,21 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="8dp"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress" />
+        android:layout_marginBottom="8dp">
 
-    <EditText
-        android:id="@+id/edtPassword"
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:drawableLeft="@drawable/ic_email_black_24dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -65,11 +79,19 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="8dp"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:hint="Senha"
-        android:inputType="textPassword" />
+        android:layout_marginBottom="8dp">
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/ic_key_black_24dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnRegister"
@@ -80,8 +102,6 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:background="@color/colorPrimary"
-        android:text="cadastrar"
-        android:textColor="@android:color/white" />
+        android:text="cadastrar" />
 
 </LinearLayout>

@@ -17,6 +17,7 @@
         completions."
     </string>
     <string name="title_activity_settings">Settings</string>
+    <string name="chk_login">Save Login</string>
 
     <!-- Strings related to Settings -->
 
